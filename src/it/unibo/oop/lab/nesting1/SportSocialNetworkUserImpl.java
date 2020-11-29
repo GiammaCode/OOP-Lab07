@@ -4,8 +4,10 @@
 package it.unibo.oop.lab.nesting1;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
+import it.unibo.oop.lab.nesting1.SportSocialNetworkUserImpl.Sport;
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUserImpl;
 import it.unibo.oop.lab.socialnetwork.User;
 
@@ -53,12 +55,12 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      * TODO: initialize properly these sports
      */
     static {
-        SOCCER = null;
-        F1 = null;
-        MOTOGP = null;
-        VOLLEY = null;
-        BASKET = null;
-        BIKE = null;
+        SOCCER = new Sport("soccer");
+        F1 = new Sport("F1");
+        MOTOGP = new Sport("motoGP");
+        VOLLEY = new Sport("volley");
+        BASKET = new Sport("basket");
+        BIKE = new Sport("bike");
     }
 
     /**
@@ -114,7 +116,7 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      */
     // TODO
     public void addSport(final Sport sport) {
-
+    	this.sports.add(sport);
     }
 
     /**
@@ -126,7 +128,7 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      */
     // TODO
     public boolean hasSport(final Sport s) {
-        return false;
+    	return this.sports.contains(s);
     }
 
     /*
@@ -136,7 +138,14 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      * with its bare name.
      */
     public static final class Sport {
-        /*
+    	private final String name;
+    	private int hash;
+    	
+    	
+    	public Sport(final String name) {
+    		this.name = Objects.requireNonNull(name, "ERROR");
+    	}
+    	/*
          * TODO
          * 
          * Redefine equals so that two sports are equal only if they feature the
@@ -144,7 +153,20 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
          */
         @Override
         public boolean equals(final Object o) {
+        	if(o == null) {
+        		return false;
+        	}
+        	if(getClass().equals(o.getClass())) {
+        		return name.equals(((Sport) o).name);
+        	}
             return false;
+        }
+        
+        public int hashCode() {
+        	if(hash==0) {
+        		hash = name.hashCode();
+        	}
+        	return hash;
         }
     }
 }

@@ -1,6 +1,8 @@
 package it.unibo.oop.lab.anonymous1;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUser;
@@ -58,8 +60,9 @@ public final class TestAnonymousComparator {
         final SocialNetworkUser<User> mrossi = new SocialNetworkUserImpl<>("Mario", "Rossi", "mrossi", 31);
         final SocialNetworkUser<User> pverdi = new SocialNetworkUserImpl<>("Paolo", "Verdi", "pverdi", 24);
         // TEST on DENZEL
-        dwashington.addFollowedUser("relatives", mrossi);
         dwashington.addFollowedUser("relatives", pverdi);
+        dwashington.addFollowedUser("relatives", mrossi);
+       
         dwashington.addFollowedUser("colleagues", kbacon);
         dwashington.addFollowedUser("writers", mgladwell);
         dwashington.addFollowedUser("writers", ntaleb);
@@ -75,6 +78,14 @@ public final class TestAnonymousComparator {
          * REFER TO LESSON 13-Advanced-Mechanisms.pdf, slide 41
          */
         // TODO
+        
+           
+        Collections.sort(denzelUsers,new Comparator<User>(){
+			public int compare(User a, User b){
+				return a.getAge()-b.getAge();
+			}
+		});
+   	        
         /*
          * expected Result
          */
@@ -106,6 +117,16 @@ public final class TestAnonymousComparator {
          * class Collections
          */
         // TODO
+        
+        final var cmp = new Comparator<User>(){
+        	public int compare(User a, User b) {
+        		return Integer.compare(b.getAge(), a.getAge());
+        	}
+        };
+        
+        Collections.sort(rossiUsers, cmp);;
+        
+        
         /*
          * expected Result
          */
@@ -119,5 +140,5 @@ public final class TestAnonymousComparator {
         System.out.println("[Order by age (decreasing) Rossi friends] [TEST] [RESULT] "
                 + checkUserOrder(expectedResult, rossiUsers));
         System.out.println("[Order by age (decreasing) Rossi friends] [TEST] [END]");
-    }
+    	}
 }
