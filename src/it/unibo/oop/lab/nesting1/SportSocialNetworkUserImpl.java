@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import it.unibo.oop.lab.nesting1.SportSocialNetworkUserImpl.Sport;
 import it.unibo.oop.lab.socialnetwork.SocialNetworkUserImpl;
 import it.unibo.oop.lab.socialnetwork.User;
 
@@ -163,7 +162,7 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
         }
         
         public int hashCode() {
-        	if(hash==0) {
+        	if(hash == 0) {
         		hash = name.hashCode();
         	}
         	return hash;
